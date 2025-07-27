@@ -14,9 +14,12 @@ type CartItem = {
 type CartState = {
   items: CartItem[];
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: string) => void;
+  removeFromCart: (id: string | number) => void;
   clearCart: () => void;
+  increaseQuantity: (id: string | number) => void;  // ✅
+  decreaseQuantity: (id: string | number) => void;  // ✅
 };
+
 
 export const useCartStore = create<CartState>()(
   persist(
@@ -36,12 +39,31 @@ export const useCartStore = create<CartState>()(
       },
       removeFromCart: (id) =>
         set({ items: get().items.filter((item) => item.id !== id) }),
+
       clearCart: () => set({ items: [] }),
+
+      increaseQuantity: (id) =>
+        set({
+          items: get().items.map((item) =>
+            item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+          ),
+        }),
+
+      decreaseQuantity: (id) =>
+        set({
+          items: get().items
+            .map((item) =>
+              item.id === id ? { ...item, quantity: item.quantity - 1 } : item
+            )
+            .filter((item) => item.quantity > 0),
+        }),
     }),
     {
       name: 'cart-storage',
       version: 1,
-      storage: createJSONStorage(() => AsyncStorage), // ✅ Safe async support
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );
+
+

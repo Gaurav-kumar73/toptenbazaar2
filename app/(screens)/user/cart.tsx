@@ -4,15 +4,17 @@ import { ThemedSafeAreaView } from '@/components/blazingUI/ThemedSafeAreaView'
 import { ThemedText } from '@/components/blazingUI/ThemedText'
 import { ThemedViewH } from '@/components/blazingUI/ThemedViewH'
 import { ThemedViewV } from '@/components/blazingUI/ThemedViewV'
+import { Colors } from '@/constants/Colors'
 import { Spacing } from '@/constants/Spacing'
 import { useCartStore } from '@/context/useCartStore'
 import { Ionicons } from '@expo/vector-icons'
+import AntDesign from '@expo/vector-icons/AntDesign'
 import { router, Stack } from 'expo-router'
 import React from 'react'
-import { FlatList, Image, StyleSheet, View } from 'react-native'
+import { FlatList, Image, StyleSheet } from 'react-native'
 
 export default function Cart() {
-  const { items, removeFromCart, clearCart } = useCartStore();
+  const { items, removeFromCart, clearCart, increaseQuantity, decreaseQuantity } = useCartStore();
 
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -39,11 +41,33 @@ export default function Cart() {
           <ThemedViewH style={styles.itemContainer} lightColor='#f2f2f2' darkColor='#404040'>
             <Image source={item.image} style={styles.image} />
 
-            <ThemedViewV type='spaceBetween' style={{flex:1}} lightColor='#f2f2f2' darkColor='#404040'>
-              <ThemedText style={{paddingHorizontal:2}} numberOfLines={1}>{item.name}</ThemedText>
-              <ThemedText>₹{item.price} x {item.quantity}</ThemedText>
+            <ThemedViewV type='spaceBetween' style={{ flex: 1 }} lightColor='#f2f2f2' darkColor='#404040'>
+              <ThemedText type='semiBold' numberOfLines={1}>{item.name}</ThemedText>
+              <ThemedText>₹{item.price}</ThemedText>
 
-              
+              <ThemedViewH type='spaceBetween' lightColor='#f2f2f2' darkColor='#404040'>
+                <ThemedViewH style={{ gap: 10 }} lightColor='#f2f2f2' darkColor='#404040'>
+                  <ThemedIcon
+                    icon={AntDesign as any}
+                    name="minus"
+                    type="outline"
+                    style={styles.icon}
+                    onPress={() => decreaseQuantity(item.id)} />
+                  <ThemedText>{item.quantity}</ThemedText>
+                  <ThemedIcon
+                    icon={AntDesign as any}
+                    name="plus"
+                    type="outline"
+                    style={styles.icon}
+                    onPress={() => increaseQuantity(item.id)} />
+                </ThemedViewH>
+                <ThemedIcon
+                  icon={Ionicons as any}
+                  name="trash"
+                  type="ghost"
+                  lightColor='#e60000' darkColor='#e60000'
+                  onPress={() => removeFromCart(item.id)} />
+              </ThemedViewH>
             </ThemedViewV>
 
           </ThemedViewH>
@@ -56,10 +80,29 @@ export default function Cart() {
       />
 
       {items.length > 0 && (
-        <View style={styles.footer}>
-          <ThemedText type="subtitle">Total: ₹{total}</ThemedText>
-          <ThemedButton title="Clear Cart" onPress={clearCart} />
-        </View>
+        <ThemedViewV>
+          <ThemedViewV style={styles.footer}>
+            <ThemedText type='subtitle'>Payment Summary</ThemedText>
+            <ThemedViewH type='spaceBetween'>
+              <ThemedText>Total Items ({items.length})</ThemedText>
+              <ThemedText type='semiBold'>₹{" "}{total}</ThemedText>
+            </ThemedViewH>
+            <ThemedViewH type='spaceBetween'>
+              <ThemedText>Delivery Fee</ThemedText>
+              <ThemedText type='semiBold'>free</ThemedText>
+            </ThemedViewH>
+            <ThemedViewH type='spaceBetween'>
+              <ThemedText>Discount</ThemedText>
+              <ThemedText type='semiBold'>₹{" "}45</ThemedText>
+            </ThemedViewH>
+            <ThemedViewH type='spaceBetween'>
+              <ThemedText>Total Amount</ThemedText>
+              <ThemedText type='semiBold' style={{color:Colors.light.primary}}>₹{" "}{total - 45 }</ThemedText>
+            </ThemedViewH>
+          </ThemedViewV>
+
+          <ThemedButton title="Order Now" onPress={clearCart} />
+        </ThemedViewV>
       )}
     </ThemedSafeAreaView>
   );
@@ -75,6 +118,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 6,
     padding: 10,
+    alignItems: "stretch"
   },
   image: {
     width: 80,
@@ -83,10 +127,17 @@ const styles = StyleSheet.create({
     marginRight: 12,
     backgroundColor: "#c6ebcd"
   },
- 
+  icon: {
+    padding: 2,
+    borderRadius: 50,
+    borderColor: "#d9d9d9"
+  },
   footer: {
-    borderTopWidth: 1,
+    borderWidth: 1,
     borderColor: '#ccc',
-    paddingTop: 10,
+    borderRadius: 16,
+    padding: 10,
+    marginBottom:12,
+    gap:2
   },
 });
