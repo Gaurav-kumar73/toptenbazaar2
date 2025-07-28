@@ -1,10 +1,10 @@
 import { useThemeColor } from '@/hooks/useThemeColor';
 import React from 'react';
 import {
-    StyleProp,
-    StyleSheet,
-    ViewProps,
-    ViewStyle,
+  StyleProp,
+  StyleSheet,
+  ViewProps,
+  ViewStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

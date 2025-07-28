@@ -143,14 +143,14 @@ export default function HomeScreen() {
             <View style={[styles.flexRow]}>
               <MaterialCommunityIcons
                 name="bell-ring-outline"
-                onPress={() => { router.push("/(screens)/user/notifications") }}
+                onPress={() => { router.push("/(screens)/common/notifications") }}
                 size={26}
                 color={Colors.light.secondary}
                 style={styles.iconContainer}
               />
               <SimpleLineIcons
                 name="handbag"
-                onPress={() => { router.push("/(screens)/user/cart") }}
+                onPress={() => { router.push("/(screens)/common/cart") }}
                 size={24}
                 color={Colors.light.secondary}
                 style={styles.iconContainer}

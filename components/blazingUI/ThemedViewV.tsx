@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   spaceBetween: {
+    flex:1,
     flexDirection: "column",
     justifyContent: "space-between",
   },
