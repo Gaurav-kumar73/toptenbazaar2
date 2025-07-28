@@ -81,6 +81,8 @@ export default function Cart() {
 
       {items.length > 0 && (
         <ThemedViewV>
+          <ThemedButton title="Clear Cart" type='link' size='sm' onPress={clearCart} />
+
           <ThemedViewV style={styles.footer}>
             <ThemedText type='subtitle'>Payment Summary</ThemedText>
             <ThemedViewH type='spaceBetween'>
@@ -101,7 +103,7 @@ export default function Cart() {
             </ThemedViewH>
           </ThemedViewV>
 
-          <ThemedButton title="Order Now" onPress={clearCart} />
+          <ThemedButton title="Order Now" />
         </ThemedViewV>
       )}
     </ThemedSafeAreaView>

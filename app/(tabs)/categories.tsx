@@ -102,6 +102,8 @@ export default function Categories() {
         ))}
       </ThemedViewH>
 
+      <ThemedText type="link" onPress={()=>router.push("/(screens)/common/item")}>Go To Single Item</ThemedText>
+
     </ThemedSafeAreaView>
   );
 }
