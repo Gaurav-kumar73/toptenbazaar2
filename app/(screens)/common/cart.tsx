@@ -30,7 +30,7 @@ export default function Cart() {
           onPress={() => { router.back() }}
         />
         <ThemedText type="subtitle">My Cart</ThemedText>
-        <ThemedText>{""}</ThemedText>
+        <ThemedText>{"   "}</ThemedText>
       </ThemedViewH>
 
 
@@ -103,7 +103,7 @@ export default function Cart() {
             </ThemedViewH>
           </ThemedViewV>
 
-          <ThemedButton title="Order Now" />
+          <ThemedButton title="Order Now" onPress={()=>router.push("/(screens)/order/checkout")}/>
         </ThemedViewV>
       )}
     </ThemedSafeAreaView>

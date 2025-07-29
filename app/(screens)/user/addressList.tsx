@@ -41,7 +41,7 @@ export default function AddressList() {
                         />
                         <ThemedViewV style={{ flex: 1 }}>
                             <ThemedText type='semiBold'>Delhi Kirti Nagar</ThemedText>
-                            <ThemedText>
+                            <ThemedText numberOfLines={2}>
                                 1234, Block A, Near Central Park, Connaught Place, New Delhi - 110001, India
                             </ThemedText>
                         </ThemedViewV>

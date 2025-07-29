@@ -57,7 +57,7 @@ export default function Profile() {
           </ThemedViewH>
         </TouchableOpacity>
 
-        <TouchableOpacity onPressOut={() => {}}>
+        <TouchableOpacity onPressOut={() => {router.push("/(screens)/order/myorder")}}>
           <ThemedViewH type='spaceBetween'>
             <ThemedViewH>
               <ThemedIcon icon={Ionicons as any} name="card-outline" type="ghost" size={20} />
